@@ -514,6 +514,20 @@ index d1749f5..bc2e0a2 100644
  ngx_int_t ngx_proxy_protocol_get_tlv(ngx_connection_t *c, ngx_str_t *name,
      ngx_str_t *value);
  
+diff --git a/src/mail/ngx_mail_proxy_module.c b/src/mail/ngx_mail_proxy_module.c
+index efed9ab..7c3f002 100644
+--- a/src/mail/ngx_mail_proxy_module.c
++++ b/src/mail/ngx_mail_proxy_module.c
+@@ -904,7 +904,8 @@ ngx_mail_proxy_send_proxy_protocol(ngx_mail_session_t *s)
+                    "mail proxy send PROXY protocol header");
+ 
+     p = ngx_proxy_protocol_write(s->connection, buf,
+-                                 buf + NGX_PROXY_PROTOCOL_V1_MAX_HEADER);
++                                 buf + NGX_PROXY_PROTOCOL_V1_MAX_HEADER,
++                                 1);
+     if (p == NULL) {
+         ngx_mail_proxy_internal_server_error(s);
+         return NGX_ERROR;
 diff --git a/src/stream/ngx_stream_proxy_module.c b/src/stream/ngx_stream_proxy_module.c
 index ed275c0..c4535b1 100644
 --- a/src/stream/ngx_stream_proxy_module.c
